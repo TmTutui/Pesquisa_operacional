@@ -32,7 +32,7 @@ x_var = [[LpVariable(matrix[i][j], lowBound=0, cat="Continuous") for j in range(
 
 receita = lpSum([price_manteigas[y]*x_var[x][y] for x in range(len(insumos)) for y in range(len(manteigas)) ])  # máx [(16 * 0,9 * 1Σ5 Xi1 + 18 * 0,85 * 1Σ5 Xi2 + 21 * 0,75 *  1Σ5 Xi3)
 
-gasto = lpSum( [- cost_insumos[y]*x_var[y][x]  for x in range(len(manteigas))  for y in range(len(insumos)) ] )  # - (10,4 1Σ3 X1j + 7,2 1Σ3 X2j + 3,2 1Σ3 X3j + 0,017 1Σ3 X4j  + 0,074Σ3 X5j)]
+gasto = lpSum( [- cost_insumos[y]*x_var[y][x]  for x in range(len(manteigas))  for y in range(len(insumos)) ] )  # - (10,4 1Σ3 X1j + 7,2 1Σ3 X2j + 3,2 1Σ3 X3j + 0,017 1Σ3 X4j  + 0,0741Σ3 X5j)]
 
 problem += receita+gasto
 
@@ -47,8 +47,9 @@ for i in range (len(insumos)):
 problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.8 <= 0.6*x_var[0][0] + 0.5*x_var[1][0], "0,6 X11 + 0,5 X21 >= 0,8 1Σ5 Xi1 "
 problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.8 <= 0.6*x_var[0][1] + 0.5*x_var[1][1], "0,6 X12 + 0,5 X22 >= 0,8 1Σ5 Xi2 "
 problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.83 <= 0.6*x_var[0][2] + 0.5*x_var[1][2], "0,6 X13 + 0,5 X23 >= 0,83 1Σ5 Xi3 "
+
 "Agua"
-problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.16 >= 0.5*x_var[0][0] + 0.4*x_var[1][0], "0,4  X11 + 0,5 X21 <= 0,16 1Σ5 Xi1 "
+problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.16 >= 0.5*x_var[0][0] + 0.4*x_var[1][0], "0,4 X11 + 0,5 X21 <= 0,16 1Σ5 Xi1 "
 problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.16 >= 0.5*x_var[0][1] + 0.4*x_var[1][1], "0,4 X12 + 0,5 X22 <= 0,16 1Σ5 Xi2 "
 problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.16 >= 0.5*x_var[0][2] + 0.4*x_var[1][2], "0,4 X13 + 0,5 X23 <= 0,16 1Σ5 Xi3 "
 
@@ -60,7 +61,7 @@ problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.02 >= x_var[2][0], 
 problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.015 >= x_var[2][1], "X32 <= 0,015 1Σ5 Xi2"
 problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.015 >= x_var[2][2], "X33 <= 0,015 1Σ5 Xi3 "
 
-
+""" 
 # RESTRIÇÕES de producao minima de cada tipo de manteiga
 problem += lpSum([x_var[i][0] for i in range(len(x_var))]) >= 3000, " 1Σ5 Xi1 >= 3000 "
 problem += lpSum([x_var[i][1] for i in range(len(x_var))]) >= 2000, " 1Σ5 Xi2 >= 2000 "
@@ -76,7 +77,7 @@ problem += lpSum([x_var[i][2] for i in range(len(x_var))])*max_corante >= x_var[
 min_corante = 0.0002
 problem += lpSum([x_var[i][0] for i in range(len(x_var))])*min_corante <= x_var[4][0], " X51 >= " + str(min_corante) + " 1Σ5 Xi1 "
 problem += lpSum([x_var[i][1] for i in range(len(x_var))])*min_corante <= x_var[4][1], " X52 >= " + str(min_corante) + " 1Σ5 Xi2 "
-problem += lpSum([x_var[i][2] for i in range(len(x_var))])*min_corante <= x_var[4][2], " X53 >= " + str(min_corante) + " 1Σ5 Xi3 "
+problem += lpSum([x_var[i][2] for i in range(len(x_var))])*min_corante <= x_var[4][2], " X53 >= " + str(min_corante) + " 1Σ5 Xi3 " """
 
 #SOLUTION
 problem.solve()
