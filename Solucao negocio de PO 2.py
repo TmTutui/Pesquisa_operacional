@@ -43,13 +43,17 @@ for i in range (len(insumos)):
 
 # RESTRIÇÕES
 problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.8 <= 0.6*x_var[0][0] + 0.5*x_var[1][0], "0,6 X11 + 0,5 X21 >= 0,8 1Σ5 Xi1 "
-
-problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.4 <= 0.6*x_var[0][1] + 0.5*x_var[1][1], "0,6 X12 + 0,5 X22 >= 0,8 1Σ5 Xi2 "
-problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.83 >= 0.6*x_var[0][2] + 0.5*x_var[1][2], "0,6 X13 + 0,5 X23 >= 0,83 1Σ5 Xi3 "
+problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.8 <= 0.6*x_var[0][1] + 0.5*x_var[1][1], "0,6 X12 + 0,5 X22 >= 0,8 1Σ5 Xi2 "
+problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.83<= 0.6*x_var[0][2] + 0.5*x_var[1][2], "0,6 X13 + 0,5 X23 >= 0,83 1Σ5 Xi3 "
 
 problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.16 >= 0.4*x_var[0][0] + 0.5*x_var[1][0], "0,4  X11 + 0,5 X21 <= 0,16 1Σ5 Xi1 "
-problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.16 <= 0.4*x_var[0][1] + 0.5*x_var[1][1], "0,4 X12 + 0,5 X22 <= 0,16 1Σ5 Xi2 "
+problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.16 >= 0.4*x_var[0][1] + 0.5*x_var[1][1], "0,4 X12 + 0,5 X22 <= 0,16 1Σ5 Xi2 "
 problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.16 >= 0.4*x_var[0][2] + 0.5*x_var[1][2], "0,4 X13 + 0,5 X23 <= 0,16 1Σ5 Xi3 "
+
+"Sal"
+problem += lpSum([x_var[i][0] for i in range(len(x_var))])*0.03 >= x_var[3][0], "X41 <= 0,03 1Σ5 Xi1 "
+problem += lpSum([x_var[i][1] for i in range(len(x_var))])*0.02 >= x_var[3][1], "X42 <= 0,02 1Σ5 Xi2"
+problem += lpSum([x_var[i][2] for i in range(len(x_var))])*0.025 >= x_var[3][2], "X43 <= 0,025 1Σ5 Xi3"
 
 #SOLUTION
 problem.solve()
